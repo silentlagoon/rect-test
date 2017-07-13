@@ -20,10 +20,12 @@ class NumPicker extends Component {
         });
     }
     handleClick() {
-
+        console.log('clcicked li');
+        return (
+            <input placeholder='input number'></input>
+        )
     }
     render() {
-        console.log(this.props);
         return (
             <form>
                 <ul>
@@ -31,14 +33,16 @@ class NumPicker extends Component {
                         this.props.options.map(function(number, index) {
                             return (
                                 <li 
-                                key={number}
+                                key={number}                               
                                 >
                                     { number }
                                 </li>
                             )
-                        })
+                        }, this)
                     }
-                    <li>...</li>
+                    <li
+                    onClick={this.handleClick}
+                    >...</li>
                 </ul>
             </form>
         );
