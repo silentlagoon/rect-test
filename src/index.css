@@ -2,4 +2,40 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: black;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.numbers-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.numbers-item {
+  cursor: pointer;
+  margin: 4px;
+	text-align: center;
+  border: 1px solid grey; 
+  background-color: #48a1a5;
+  border-radius: 5px;
+  flex: 0 0 auto;
+  min-width: 22px;
+  color: white;
+}
+
+.current-players-number {
+  color: white;
 }

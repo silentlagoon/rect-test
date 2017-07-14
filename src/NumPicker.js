@@ -1,49 +1,78 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 
 class NumPicker extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            input: false,
+        };
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
-    handleChange(event) {
-        var value = event.target.value;
 
+    handleClick() {
         this.setState(function() {
             return {
-                value: value
+                input: true
             }
-        });
+        })
     }
-    handleClick() {
-        console.log('clcicked li');
-        return (
-            <input placeholder='input number'></input>
-        )
+
+    handleInputChange(event) {
+        if(event.key === 'Enter') {
+            event.preventDefault();
+            const { options, playersChange } = this.props;
+            const players = options.slice();
+            const inputValue = parseInt(event.target.value)
+            players.push(inputValue);
+            playersChange(players, inputValue);
+            this.setState({ input: false });
+        }
     }
+
+    componentDidUpdate() {
+        if(this.state.input) {
+           ReactDOM.findDOMNode(this.refs.myInput).focus()
+        }
+    }
+    
     render() {
+        const { options, onChange, value, playersChange } = this.props;
+        const { input } = this.state;
+
         return (
             <form>
-                <ul>
+                {input ? 
+
+                <input type='number' onKeyPress={this.handleInputChange} ref='myInput' /> 
+                
+                : 
+                
+                <ul className='numbers-list'>
                     {
-                        this.props.options.map(function(number, index) {
+                        options.map((number, index) => {
                             return (
-                                <li 
+                                <li
+                                className='numbers-item'
+                                style={number === value ? {backgroundColor: 'purple'} : null}
+                                onClick={() => onChange(number)}
                                 key={number}                               
                                 >
                                     { number }
                                 </li>
                             )
-                        }, this)
+                        })
                     }
                     <li
-                    onClick={this.handleClick}
+                        className='numbers-item'
+                        onClick={this.handleClick}
                     >...</li>
                 </ul>
+                }
             </form>
         );
     }
@@ -51,8 +80,8 @@ class NumPicker extends Component {
 
 NumPicker.propTypes = {
     options: PropTypes.array.isRequired,
-    value: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    playersChange: PropTypes.func.isRequired
 }
 
 export default NumPicker;
