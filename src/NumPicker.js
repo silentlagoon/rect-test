@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import TextField from 'material-ui/TextField';
 
 class NumPicker extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class NumPicker extends Component {
 
     componentDidUpdate() {
         if(this.state.input) {
-           ReactDOM.findDOMNode(this.refs.myInput).focus()
+           this.refs.myInput.focus();
         }
     }
     
@@ -48,7 +49,13 @@ class NumPicker extends Component {
             <form>
                 {input ? 
 
-                <input type='number' onKeyPress={this.handleInputChange} ref='myInput' /> 
+                <TextField
+                    hintText="Enter players number"
+                    type='number'
+                    onKeyPress={this.handleInputChange}
+                    ref='myInput'
+                    inputStyle={{color: 'white'}}
+                />
                 
                 : 
                 

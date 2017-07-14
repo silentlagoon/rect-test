@@ -38,7 +38,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div className='container'>
-          <div className='current-players-number'>How many players?</div>
+          <div className='current-players-number' style={{color: '#2a9669', fontWeight: 'bold', marginTop: '10px'}}>How many players?</div>
           <NumPicker 
             options={ players }
             value={value} 
